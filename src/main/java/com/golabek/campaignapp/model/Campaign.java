@@ -2,6 +2,7 @@ package com.golabek.campaignapp.model;
 
 import com.golabek.campaignapp.model.enums.Status;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +11,7 @@ import java.util.Set;
 
 @Entity
 public class Campaign {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -18,8 +20,9 @@ public class Campaign {
     @NotBlank
     private String name;
 
-    //@NotNull
-    //private Set<String> keywords;
+    @NotNull
+    @ManyToMany
+    private Set<Keyword> keywords;
 
     @NotNull
     private int bidAmount;
@@ -40,8 +43,9 @@ public class Campaign {
     public Campaign() {
     }
 
-    public Campaign(@NotNull @NotBlank String name, @NotNull int bidAmount, @NotNull int campaignFund, @NotNull Status status, String town, @NotNull @Min(0) int radius) {
+    public Campaign(@NotNull @NotBlank String name, @NotNull Set<Keyword> keywords, @NotNull int bidAmount, @NotNull int campaignFund, @NotNull Status status, String town, @NotNull @Min(0) int radius) {
         this.name = name;
+        this.keywords = keywords;
         this.bidAmount = bidAmount;
         this.campaignFund = campaignFund;
         this.status = status;
@@ -103,5 +107,13 @@ public class Campaign {
 
     public void setRadius(int radius) {
         this.radius = radius;
+    }
+
+    public Set<Keyword> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(Set<Keyword> keywords) {
+        this.keywords = keywords;
     }
 }
