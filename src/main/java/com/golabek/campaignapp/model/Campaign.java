@@ -34,7 +34,8 @@ public class Campaign {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private String town;
+    @ManyToOne
+    private Town town;
 
     @NotNull
     @Min(0)
@@ -43,7 +44,7 @@ public class Campaign {
     public Campaign() {
     }
 
-    public Campaign(@NotNull @NotBlank String name, @NotNull Set<Keyword> keywords, @NotNull int bidAmount, @NotNull int campaignFund, @NotNull Status status, String town, @NotNull @Min(0) int radius) {
+    public Campaign(@NotNull @NotBlank String name, @NotNull Set<Keyword> keywords, @NotNull int bidAmount, @NotNull int campaignFund, @NotNull Status status, Town town, @NotNull @Min(0) int radius) {
         this.name = name;
         this.keywords = keywords;
         this.bidAmount = bidAmount;
@@ -93,11 +94,11 @@ public class Campaign {
         this.status = status;
     }
 
-    public String getTown() {
+    public Town getTown() {
         return town;
     }
 
-    public void setTown(String town) {
+    public void setTown(Town town) {
         this.town = town;
     }
 
