@@ -1,5 +1,6 @@
 package com.golabek.campaignapp.service;
 
+import com.golabek.campaignapp.exceptions.CampaignIdException;
 import com.golabek.campaignapp.model.Campaign;
 import com.golabek.campaignapp.repository.CampaignRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,10 @@ public class CampaignService {
     private CampaignRepo campaignRepo;
 
     public Campaign addOrUpdateCampaign(Campaign campaign){
-        //TODO
+        // when update, check if exists
+        if ( campaign.getId() != null) {
+            Campaign existingCampaign = findById(campaign.getId());
+        }
         return campaignRepo.save(campaign);
     }
 
@@ -23,13 +27,20 @@ public class CampaignService {
     }
 
     public Campaign findById(Long id){
-        //TODO
-        return campaignRepo.findById(id).get();
+        try {
+            Campaign campaign = campaignRepo.findById(id).get();
+            return campaign;
+        } catch (Exception ex){
+            throw new CampaignIdException("Campaign with ID " + id + " doesn't exist");
+        }
     }
 
     public void deleteById(Long id){
-        //TODO
+        //check if exists
+        Campaign existingCampaign = findById(id);
+
         campaignRepo.deleteById(id);
     }
-
 }
+
+

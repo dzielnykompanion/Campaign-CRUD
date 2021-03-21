@@ -1,11 +1,12 @@
 package com.golabek.campaignapp.web;
 
 import com.golabek.campaignapp.model.Campaign;
-import com.golabek.campaignapp.repository.CampaignRepo;
 import com.golabek.campaignapp.service.CampaignService;
+import com.golabek.campaignapp.service.ErrorMapValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,13 +16,17 @@ import java.util.List;
 public class CampaignController {
 
     @Autowired
-    private CampaignRepo campaignRepo;
-
-    @Autowired
     private CampaignService campaignService;
 
+    @Autowired
+    private ErrorMapValidationService errorMapValidationService;
+
     @PostMapping("/addCampaign")
-    public ResponseEntity<?> addOrUpdateCampaign(@Valid @RequestBody Campaign campaign) {
+    public ResponseEntity<?> addOrUpdateCampaign(@Valid @RequestBody Campaign campaign, BindingResult result) {
+
+        ResponseEntity<?> errorMap = errorMapValidationService.errorMapValidationService(result);
+        if ( errorMap != null ) return errorMap;
+
         campaignService.addOrUpdateCampaign(campaign);
         return new ResponseEntity<Campaign>(campaign, HttpStatus.CREATED);
     }
