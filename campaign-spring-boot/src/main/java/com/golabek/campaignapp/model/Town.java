@@ -12,7 +12,7 @@ public class Town {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Name cannot be null")
     @NotBlank
     private String name;
 

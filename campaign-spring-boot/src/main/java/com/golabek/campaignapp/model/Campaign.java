@@ -16,42 +16,36 @@ public class Campaign {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Name cannot be null")
     @NotBlank
     private String name;
 
-    @NotNull
+
     @ManyToMany
     private Set<Keyword> keywords;
 
-    @NotNull
-    private int bidAmount;
+    @NotNull(message = "Bid amount cannot be null")
+    @Min(0)
+    private Integer bidAmount;
 
-    @NotNull
-    private int campaignFund;
+    @NotNull(message = "Campaign fund cannot be null")
+    @Min(0)
+    private Integer campaignFund;
 
-    @NotNull
+    @NotNull(message = "Status cannot be null")
     @Enumerated(EnumType.STRING)
     private Status status;
 
     @OneToOne
     private Town town;
 
-    @NotNull
+    @NotNull(message = "Radius cannot be null")
     @Min(0)
-    private int radius;
+    private Integer radius;
+
+    private Long sellerId;
 
     public Campaign() {
-    }
-
-    public Campaign(@NotNull @NotBlank String name, @NotNull Set<Keyword> keywords, @NotNull int bidAmount, @NotNull int campaignFund, @NotNull Status status, Town town, @NotNull @Min(0) int radius) {
-        this.name = name;
-        this.keywords = keywords;
-        this.bidAmount = bidAmount;
-        this.campaignFund = campaignFund;
-        this.status = status;
-        this.town = town;
-        this.radius = radius;
     }
 
     public Long getId() {
@@ -116,5 +110,13 @@ public class Campaign {
 
     public void setKeywords(Set<Keyword> keywords) {
         this.keywords = keywords;
+    }
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
     }
 }

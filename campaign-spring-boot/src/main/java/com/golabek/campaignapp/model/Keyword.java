@@ -12,11 +12,11 @@ public class Keyword {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Keyword cannot be null")
     @NotBlank
     private String keyword;
 
-    @NotNull
+
     @ManyToMany(mappedBy = "keywords")
     private Set<Campaign> campaigns;
 

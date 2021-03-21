@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "campaign-app-angular-client"
+    }
+  },
+  "defaultProject": "campaign-app-angular-client",
+  "cli": {
+    "analytics": false
+  }
 }

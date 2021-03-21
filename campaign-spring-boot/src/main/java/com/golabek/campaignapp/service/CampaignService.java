@@ -1,7 +1,9 @@
 package com.golabek.campaignapp.service;
 
 import com.golabek.campaignapp.exceptions.CampaignIdException;
+import com.golabek.campaignapp.exceptions.SellerFundsException;
 import com.golabek.campaignapp.model.Campaign;
+import com.golabek.campaignapp.model.Seller;
 import com.golabek.campaignapp.repository.CampaignRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +16,32 @@ public class CampaignService {
     @Autowired
     private CampaignRepo campaignRepo;
 
+    @Autowired
+    private SellerService sellerService;
+
     public Campaign addOrUpdateCampaign(Campaign campaign){
         // when update, check if exists
         if ( campaign.getId() != null) {
             Campaign existingCampaign = findById(campaign.getId());
         }
-        return campaignRepo.save(campaign);
+
+        // find correct seller, if not found it will throw exception
+        Seller seller = sellerService.findById(campaign.getSellerId());
+
+        // check if seller has funds
+        if (seller.getFunds() < campaign.getCampaignFund()){
+            throw new SellerFundsException("Seller has not enough funds for this campaign");
+        }
+
+        // first save campaign
+        campaignRepo.save(campaign);
+
+        // then, update seller
+        seller.setFunds(seller.getFunds()-campaign.getCampaignFund());
+        seller.getCampaigns().add(campaign);
+        sellerService.addOrUpdateSeller(seller);
+
+        return campaign;
     }
 
     public List<Campaign> getAll(){
