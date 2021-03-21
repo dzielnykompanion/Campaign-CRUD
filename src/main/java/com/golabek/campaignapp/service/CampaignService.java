@@ -27,7 +27,7 @@ public class CampaignService {
         return campaignRepo.findById(id).get();
     }
 
-    public void deleteCampaign(Long id){
+    public void deleteById(Long id){
         //TODO
         campaignRepo.deleteById(id);
     }
