@@ -18,11 +18,14 @@
               <tr *ngFor="let campaign of listCampaigns">
                 <td>{{campaign.id}}</td>
                 <td>{{campaign.name}}</td>
-                <td>{{campaign.keywords}}</td>
+                <td><div *ngFor="let keyword of campaign.keywords">
+                {{keyword.keyword}}
+                </div>
+                </td>
                 <td>{{campaign.bidAmount}}</td>
                 <td>{{campaign.campaignFund}}</td>
                 <td>{{campaign.status}}</td>
-                <td>{{campaign.town}}</td>
+                <td>{{campaign.town.name}}</td>
                 <td>{{campaign.radius}}</td>
                 <td>{{campaign.sellerId}}</td>
                 <td>
