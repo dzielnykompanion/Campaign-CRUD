@@ -5,22 +5,19 @@ import com.golabek.campaignapp.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@RestController
 public class SellerController {
 
     @Autowired
     SellerService sellerService;
 
     @PostMapping("/addSeller")
-    public ResponseEntity<?> addOrUpdateCampaign(@Valid @RequestBody Seller seller) {
+    public ResponseEntity<?> addOrUpdateSeller(@Valid @RequestBody Seller seller) {
 
         sellerService.addOrUpdateSeller(seller);
         return new ResponseEntity<Seller>(seller, HttpStatus.CREATED);
