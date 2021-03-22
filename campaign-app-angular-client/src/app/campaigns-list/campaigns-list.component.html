@@ -11,6 +11,7 @@
             <th scope="col">TOWN</th>
             <th scope="col">RADIUS</th>
             <th scope="col">SELLER</th>
+            <th scope="col">OPTIONS</th>
           </tr>
         </thead>
         <tbody>
@@ -24,6 +25,10 @@
                 <td>{{campaign.town}}</td>
                 <td>{{campaign.radius}}</td>
                 <td>{{campaign.sellerId}}</td>
+                <td>
+                    <button (click)="campaignDetails(campaign.id)" class="btn btn-info" style="margin-right: 10px">Update</button>
+                    <button (click)="deleteCampaign(campaign.id)" class="btn btn-danger"><div>Delete</div></button>
+                </td>
               </tr>
         </tbody>
 </table>

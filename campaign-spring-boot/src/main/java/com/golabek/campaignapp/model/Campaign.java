@@ -1,5 +1,7 @@
 package com.golabek.campaignapp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.golabek.campaignapp.model.enums.Status;
 
 
@@ -43,7 +45,10 @@ public class Campaign {
     @Min(0)
     private Integer radius;
 
-    private Long sellerId;
+    @JsonBackReference
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="seller_id")
+    private Seller seller;
 
     public Campaign() {
     }
@@ -64,19 +69,27 @@ public class Campaign {
         this.name = name;
     }
 
-    public int getBidAmount() {
+    public Set<Keyword> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(Set<Keyword> keywords) {
+        this.keywords = keywords;
+    }
+
+    public Integer getBidAmount() {
         return bidAmount;
     }
 
-    public void setBidAmount(int bidAmount) {
+    public void setBidAmount(Integer bidAmount) {
         this.bidAmount = bidAmount;
     }
 
-    public int getCampaignFund() {
+    public Integer getCampaignFund() {
         return campaignFund;
     }
 
-    public void setCampaignFund(int campaignFund) {
+    public void setCampaignFund(Integer campaignFund) {
         this.campaignFund = campaignFund;
     }
 
@@ -96,27 +109,19 @@ public class Campaign {
         this.town = town;
     }
 
-    public int getRadius() {
+    public Integer getRadius() {
         return radius;
     }
 
-    public void setRadius(int radius) {
+    public void setRadius(Integer radius) {
         this.radius = radius;
     }
 
-    public Set<Keyword> getKeywords() {
-        return keywords;
+    public Seller getSeller() {
+        return seller;
     }
 
-    public void setKeywords(Set<Keyword> keywords) {
-        this.keywords = keywords;
-    }
-
-    public Long getSellerId() {
-        return sellerId;
-    }
-
-    public void setSellerId(Long sellerId) {
-        this.sellerId = sellerId;
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 }

@@ -26,7 +26,7 @@ public class CampaignService {
         }
 
         // find correct seller, if not found it will throw exception
-        Seller seller = sellerService.findById(campaign.getSellerId());
+        Seller seller = sellerService.findById(campaign.getSeller().getId());
 
         // check if seller has funds
         if (seller.getFunds() < campaign.getCampaignFund()){

@@ -1,5 +1,8 @@
 package com.golabek.campaignapp.model;
 
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,7 +17,8 @@ public class Seller {
     private String name;
     private Integer funds;
 
-    @OneToMany
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="seller", orphanRemoval = true)
     private Collection<Campaign> campaigns = new ArrayList<>();
 
     public Seller() {

@@ -29,6 +29,16 @@ export class CampaignsListComponent implements OnInit {
       }
     )
   }
+
+  deleteCampaign(id: number){
+            this._campaignService.deleteCampaign(id).subscribe(
+              (data) => {
+                console.log(data);
+                this.reloadData()
+              },
+              (error) => console.log(error)
+            );
+          }
 }
 
 
