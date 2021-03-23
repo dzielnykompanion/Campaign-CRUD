@@ -9,6 +9,8 @@ import { SellersListComponent } from './sellers-list/sellers-list.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CampaignsListComponent } from './campaigns-list/campaigns-list.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -17,11 +19,13 @@ import { CampaignsListComponent } from './campaigns-list/campaigns-list.componen
     CampaignDetailsComponent,
     CampaignListComponent,
     SellersListComponent,
-    CampaignsListComponent
+    CampaignsListComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
