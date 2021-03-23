@@ -5,6 +5,8 @@ import com.golabek.campaignapp.repository.TownRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TownService {
 
@@ -18,5 +20,9 @@ public class TownService {
         } catch (Exception ex){
             throw new Exception("Town with that ID doesnt exists");
         }
+    }
+
+    public List<Town> getAll(){
+        return townRepo.findAll();
     }
 }

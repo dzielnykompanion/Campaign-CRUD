@@ -16,8 +16,8 @@ export class CampaignService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  createCampaign(campaign: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/addCampaign`, campaign);
+  createCampaign(campaign: Object, sellerId: Number): Observable<Object> {
+    return this.http.post(`${this.baseUrl}/addCampaign/${sellerId}`, campaign);
   }
 
   updateCampaign(id: number, value: any): Observable<Object> {

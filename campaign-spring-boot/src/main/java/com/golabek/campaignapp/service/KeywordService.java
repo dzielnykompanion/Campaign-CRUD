@@ -5,6 +5,8 @@ import com.golabek.campaignapp.repository.KeywordRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class KeywordService {
 
@@ -18,5 +20,9 @@ public class KeywordService {
         } catch (Exception ex){
             throw new Exception("Keyword with that ID doesnt exists");
         }
+    }
+
+    public List<Keyword> getAll(){
+        return keywordRepo.findAll();
     }
 }

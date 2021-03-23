@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Campaign, Town } from '../Models';
+import { CampaignService } from '../services/campaign.service';
+import { KeywordService } from '../services/keyword.service';
+import { SellerService } from '../services/seller.service';
+import { TownService } from '../services/town.service';
 
 @Component({
   selector: 'app-campaign-details',
@@ -7,35 +12,83 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class CampaignDetailsComponent implements OnInit {
-  dropdownList = [];
-  selectedItems = [];
-  City: any = ['Florida', 'South Dakota', 'Tennessee', 'Michigan']
-  dropdownSettings = {};
   
-  constructor() {};
+  keywords = [];
+  sellers = [];
+  towns = [];
+  dropdownSettings = {};
+
+  constructor(
+    private _campaignService: CampaignService,
+    private _sellerService: SellerService,
+    private _townService: TownService,
+    private _keywordService: KeywordService
+    ){};
+
 
   ngOnInit() {
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' }
-    ];
-    this.selectedItems = [
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' }
-    ];
+    this.loadTowns()
+    this.loadKeywords()
+    this.loadSellers()
     this.dropdownSettings = {
       singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
+      idField: 'id',
+      textField: 'keyword',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
+      itemsShowLimit: 8,
       allowSearchFilter: true
     };
   }
+
+  loadSellers() {
+    this._sellerService.getSellerList()
+    .subscribe
+    (
+      data =>
+      {
+        console.log(data);
+        this.sellers = data;
+      }
+    )
+  }
+  
+    loadTowns() {
+      this._townService.getTownList()
+      .subscribe
+      (
+        data =>
+        {
+          console.log(data);
+          this.towns = data;
+        }
+      )
+    }
+    
+
+    loadKeywords() {
+      this._keywordService.getKeywordList()
+      .subscribe
+      (
+        data =>
+        {
+          console.log(data);
+          this.keywords = data;
+        }
+      )
+    }
+
+
+  onSubmit(data, sellerId) {
+    this._campaignService.createCampaign(data, sellerId).subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (error) => console.log(error)
+    );
+  }
+
+
   onItemSelect(item: any) {
     console.log(item);
   }

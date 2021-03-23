@@ -6,16 +6,17 @@ export class Seller {
 }
 
 export class Campaign {
-    id:           number;
-    name:         string;
-    keywords:     Keyword[];
-    bidAmount:    number;
-    campaignFund: number;
-    status:       string;
-    town:         Town;
-    radius:       number;
-    sellerId:     number;
-    sellerName:   string;
+    constructor(
+    public id:           number,
+    public name:         string,
+    public keywords:     Keyword[],
+    public bidAmount:    number,
+    public campaignFund: number,
+    public status:       string,
+    public town:         Town,
+    public radius:       number,
+    public sellerId:     number,
+    ){}
 }
 
 export class Keyword {

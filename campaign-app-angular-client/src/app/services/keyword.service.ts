@@ -14,5 +14,8 @@ export class KeywordService {
   getKeyword(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/keyword/${id}`);
   }
+  getKeywordList(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/keyword/getAll`);
+  }
 
 }

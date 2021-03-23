@@ -15,4 +15,8 @@ export class TownService {
     return this.http.get(`${this.baseUrl}/town/${id}`);
   }
 
+  getTownList(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/town/getAll`);
+  }
+
 }
